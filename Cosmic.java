@@ -150,6 +150,7 @@ public class Cosmic{
          StdOut.println("Pick an integer: "); 
          int i = StdIn.readInt();
          StdOut.println(cosmicNumber(i));
+         StdOut.println("4 is cosmic!");
       }
    }
 }

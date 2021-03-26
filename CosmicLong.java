@@ -1,8 +1,8 @@
-public class Cosmic{
-   public static String numToText_English(int i){
-      /*Convert any int to its English textual representation
+public class CosmicLong{
+   public static String numToText_English(long i){
+      /*Convert any long to its English textual representation
       Input:
-         int i: an integer to convert to English text
+         long i: an longeger to convert to English text
       Output:
          return: a String representing the English word for i
       Ex.
@@ -12,22 +12,22 @@ public class Cosmic{
       numToText_English(-12) -> "negative twelve"
       */
       if(100 <= i && i <= 999){
-         int other = i % 100;
-         int hund = (i - other) / 100;
+         long other = i % 100;
+         long hund = (i - other) / 100;
          return numToText_English(hund) + " hundred " + numToText_English(other);
       }
       //Step 2, thousands 1000􏰀999999
       //Assume that you have 0􏰀9999 working for this section
       if(1000 <= i && i <= 999999) {
-         int other = i % 1000;
-         int thousand = (i - other) / 1000;
+         long other = i % 1000;
+         long thousand = (i - other) / 1000;
          return numToText_English(thousand) + " thousand " + numToText_English(other);
       }
       //Step 3, tens 20􏰀99
       //Assume that you have 0􏰀19 working for this section
       if(20 <= i && i <= 99) {
-         int other = i % 10;
-         int tens = (i - other)/10;
+         long other = i % 10;
+         long tens = (i - other)/10;
          String tenString = "";
          if (tens == 2){
             tenString = "twenty";
@@ -86,14 +86,14 @@ public class Cosmic{
       }
       //Step 6, millions
       if(1000000 <= i && i <= 999999999){
-         int other = i % 1000000;
-         int mil = (i - other) / 1000000;
+         long other = i % 1000000;
+         long mil = (i - other) / 1000000;
          return numToText_English(mil) + " million " + numToText_English(other);
       }
-      //Step 7, billions, the largest possible ints
+      //Step 7, billions, the largest possible longs
       if(i >= 1000000000){
-         int other = i % 1000000000;
-         int bil = (i - other) / 1000000000;
+         long other = i % 1000000000;
+         long bil = (i - other) / 1000000000;
          return numToText_English(bil) + " billion " + numToText_English(other); 
       }
       //Otherwise, something went wrong
@@ -102,11 +102,11 @@ public class Cosmic{
       }
       
    }
-   public static String cosmicNumber(int i){
+   public static String cosmicNumber(long i){
       /*Returns the string of numbers leading back to 4
       in the "Four is Cosmic" riddle
       Input:
-         int i: the number to start with
+         long i: the number to start with
       Output:
          return: the String of numbers leading back to 4
       Ex.
@@ -115,7 +115,7 @@ public class Cosmic{
       */
       String finalstring = "";
       String tempString = stripSpace(numToText_English(i));
-      int length = i;
+      long length = i;
       while (!tempString.equals("four")){
         finalstring += length;
         finalstring += ", ";
@@ -124,6 +124,30 @@ public class Cosmic{
       }
       finalstring += 4;
       return finalstring;
+   }
+   public static long cosmicNumberTester(int z){
+      /*Returns the string of numbers leading back to 4
+      in the "Four is Cosmic" riddle
+      Input:
+         long i: the number to start with
+      Output:
+         return: the String of numbers leading back to 4
+      Ex.
+      cosmicNumber(3) ->  "3, 5, 4"
+      cosmicNumber(17) -> "17, 9, 4"
+      */
+      int tempCounter = 0;
+      long fCounter = 0;
+      for (long f = 0; tempCounter < z; f++){
+         tempCounter = 1;
+         for (int i = 0; i < cosmicNumber(f).length(); i++){
+            if (cosmicNumber(f).charAt(i) == ',')
+            tempCounter++;
+         }
+         fCounter = f;
+         StdOut.println(fCounter);
+      }
+      return fCounter;
    }
    public static String stripSpace(String s){
       /*Returns the String with spaces stripped
@@ -148,8 +172,9 @@ public class Cosmic{
       StdOut.println("Did you know that 4 is cosmic?");
       while(true){
          StdOut.println("Pick an integer: "); 
-         int i = StdIn.readInt();
+         long i = StdIn.readLong();
          StdOut.println(cosmicNumber(i));
+         StdOut.println("4 is cosmic!");
       }
    }
 }
